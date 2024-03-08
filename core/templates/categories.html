@@ -1,0 +1,9 @@
+<div class="w-1/4 pr-4">
+    <h2 class="text-2xl font-bold mb-4">Categories</h2>
+    <div class="space-y-2 overflow-y-auto" style="max-height: 500px;">
+        <a href="{% url 'home' %}" class="block text-white hover:underline">All Categories</a>
+        {% for cat in category %} 
+        <a href="{% url 'category_wise_post' cat.slug %}" class="block text-white hover:underline">{{cat.name}}</a>
+        {% endfor %}
+    </div>
+</div>

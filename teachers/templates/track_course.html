@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+
+{% comment %} <div class="container d-flex flex-wrap justify-content-center">
+  {% for i in data %}
+  {% if i.author == request.user.account %}
+  <div class="col-sm-3">
+    <div class="card mx-2 my-2">
+      <div class="card-body">
+        <img src="{{i.image.url}}" class="card-img-top" alt="..." style="height:12rem">
+        <h5 class="card-title mt-2"><a href="{% url 'details_course' i.id %}" class="text-decoration-none text-dark">{{i.title}}</a></h5>
+        <p class="card-text">{{i.content |truncatewords:15 }}</p>
+        <p>Author : {{i.author.first_name}} {{i.author.last_name}}</p>
+        <p
+          >Category : {% for j in i.category.all %}
+          <button class="btn btn-primary btn-sm my-1">{{j.name}}</button> {% endfor %}
+        </p>
+        <a href="{% url 'edit_course' i.id %}" class="btn btn-warning btn-sm px-3">Edit</a>
+        <a href="{% url 'delete_course' i.id %}" class="btn btn-danger btn-sm mx-2 px-3">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div> {% endcomment %}
+
+
+
+{% load static %}
+<div class="w-3/4 mx-auto">
+    <h2 class="text-2xl font-bold mb-4 text-center mt-10">{{data|length}} results found</h2>
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 space-y-2" style="max-height: 500px;">
+        {% for i in data %}
+        <div class="bg-white p-4 shadow-md rounded-md">
+            <div class="flex justify-center">
+                {% if i.image %}
+                <img style="height: 200px; object-fit: cover;" src="{{i.image.url}}" class="img-fluid" alt="{{i.title}}">
+                {% else %}
+                <img style="height: 200px; object-fit: cover;" class="img-fluid" alt="No Image Available"></img>
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <h3 class="text-lg font-bold mb-2">{{i.title}}</h3>
+                <p style="height: 80px;" class="text-gray-600">{{i.content |truncatewords:10 }}</p>
+                <p class="text-blue-500 font-bold mb-1">Author : <span class="text-gray-600">{{i.author}}</span></p>
+                <p class="text-blue-500 font-bold mb-2">
+                    Category : {% for j in i.category.all %}
+                    <span class="text-gray-600">{{j.name}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="text-center mt-5">
+              <a href="{% url 'edit_course' i.id %}" class="bg-blue-900 text-white font-bold py-1 px-4 rounded-md hover:bg-blue-600">Edit</a>
+              <a href="{% url 'delete_course' i.id %}" class="bg-blue-900 text-white font-bold py-1 px-4 rounded-md hover:bg-blue-600">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
