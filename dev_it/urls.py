@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView, name='home'),
     path('category/<slug:category_slug>/', HomeView, name='category_wise_post'),
-    # path('students/', include('students.urls')),
     path('teachers/', include('teachers.urls')),
     path('courses/', include('courses.urls')),
     path('enrollments/', include('enrollments.urls')),

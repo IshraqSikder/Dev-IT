@@ -1,6 +1,4 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from datetime import datetime
 from enrollments.models import Enrollment
@@ -31,23 +29,14 @@ class EnrollmentReportView(LoginRequiredMixin, ListView):
             start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
             end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()     
             queryset = queryset.filter(timestamp__date__gte=start_date, timestamp__date__lte=end_date)
-        #     self.balance = Enrollment.objects.filter(
-        #         timestamp__date__gte=start_date, timestamp__date__lte=end_date).aggregate(Sum('amount'))['amount__sum']
-        # else:
-        #     self.balance = self.request.user.account.balance
        
         return queryset.distinct()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset() 
-        # if queryset.exists():
-        #     balance = queryset.aggregate(Sum('amount'))['amount__sum']
-        # else:
-        #     balance = self.request.user.account.balance
         
         context.update({
             'enrollments': queryset,
-            # 'current_balance': balance
         })  
         return context

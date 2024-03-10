@@ -1,34 +1,8 @@
 {% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
-
-{% comment %} <div class="container d-flex flex-wrap justify-content-center">
-  {% for i in data %}
-  {% if i.author == request.user.account %}
-  <div class="col-sm-3">
-    <div class="card mx-2 my-2">
-      <div class="card-body">
-        <img src="{{i.image.url}}" class="card-img-top" alt="..." style="height:12rem">
-        <h5 class="card-title mt-2"><a href="{% url 'details_course' i.id %}" class="text-decoration-none text-dark">{{i.title}}</a></h5>
-        <p class="card-text">{{i.content |truncatewords:15 }}</p>
-        <p>Author : {{i.author.first_name}} {{i.author.last_name}}</p>
-        <p
-          >Category : {% for j in i.category.all %}
-          <button class="btn btn-primary btn-sm my-1">{{j.name}}</button> {% endfor %}
-        </p>
-        <a href="{% url 'edit_course' i.id %}" class="btn btn-warning btn-sm px-3">Edit</a>
-        <a href="{% url 'delete_course' i.id %}" class="btn btn-danger btn-sm mx-2 px-3">Delete</a>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  {% endfor %}
-</div> {% endcomment %}
-
-
-
 {% load static %}
-<div class="w-3/4 mx-auto">
+<div class="w-3/4 mx-auto mb-32">
     <h2 class="text-2xl font-bold mb-4 text-center mt-10">{{data|length}} results found</h2>
-    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 space-y-2" style="max-height: 500px;">
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 space-y-2">
         {% for i in data %}
         <div class="bg-white p-4 shadow-md rounded-md">
             <div class="flex justify-center">

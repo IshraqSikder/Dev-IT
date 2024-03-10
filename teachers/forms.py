@@ -45,7 +45,6 @@ class UserRegistrationForm(UserCreationForm):
                 
         account = our_user
         print(account)
-        # account.set_password(password)
         account.is_active = False
         account.save()  
          

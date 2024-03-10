@@ -3,7 +3,7 @@
 {% load humanize %}
 {% block head_title %}Enrollment Report{% endblock %} {% block content %}
 
-<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
+<div class="mt-10 mb-32 py-3 px-4 bg-white rounded-xl shadow-md">
   <h1 class="font-bold text-3xl text-center pb-5 pt-2">Enrollment Report</h1>
   <hr>
   <form method="get" action="{% url 'enrollment_report' %}">
@@ -45,7 +45,6 @@
       </tr>
     </thead>
     <tbody>
-      {% comment %} <p> {{ enrollments|length }} </p> {% endcomment %}
       {% for enrollment in enrollments %}
       <tr class="border-b dark:border-neutral-500">
         <td class="px-4 py-2">

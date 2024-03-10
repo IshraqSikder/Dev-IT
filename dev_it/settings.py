@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'core',
-    # 'students',
     'teachers',
     'courses',
     'categories',
@@ -55,9 +54,6 @@ INSTALLED_APPS = [
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
-# CRISPY_ALLOWED_TEMPLATE_PACKS = ('tailwind',)
-# CRISPY_TEMPLATE_PACK = 'tailwind' 
-# LOGIN_URL = '/accounts/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

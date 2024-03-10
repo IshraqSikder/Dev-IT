@@ -36,15 +36,3 @@ class CommentForm(forms.ModelForm):
                     'focus:bg-white focus:border-gray-500'
                 ) 
             })
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     if self.instance and self.instance.user:
-    #         self.fields['name'].initial = self.instance.user.get_full_name()
-    #         self.fields['email'].initial = self.instance.user.email
-            
-    #     elif self.instance and not self.instance.user:
-    #         user = self.initial.get('user')
-    #         if user and user.is_authenticated:
-    #             self.fields['name'].initial = user.get_full_name()
-    #             self.fields['email'].initial = user.email

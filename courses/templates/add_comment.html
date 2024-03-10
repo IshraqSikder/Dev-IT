@@ -1,22 +1,24 @@
-{% comment %} {% if user in course.borrowers.all %} {% endcomment %}
-<div class="w-full flex mt-5 justify-center ">
-    <div class="bg-white w-5/12 rounded-lg">
-        <form method="post">
-            <h1 class="text-center text-4xl">Add Comment</h1>
-            {% csrf_token %}
-            {% for field in comment_form %}
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
-                    {{ field.label_tag }}
-                </label>
-                <div class="border rounded focus:border-black">
-                    {{ field }}
-                </div>
-                <p class="text-red-500 text-xs italic">{{ field.errors|striptags }}</p>
-            </div>
-            {% endfor %}     
-            <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5" type="submit" value="Submit">
-        </form>
-    </div>
+{% if user in course.borrowers.all %}
+<div class="w-full flex mt-5 justify-center">
+  <div class="w-10/12 rounded-lg">
+    <form method="post">
+      <h1 class="text-center text-4xl">Add Comment</h1>
+      {% csrf_token %} {% for field in comment_form %}
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="{{ field.id_for_label }}">
+          {{ field.label_tag }}
+        </label>
+        <div class="border rounded focus:border-black">{{ field }}</div>
+        <p class="text-red-500 text-xs italic">{{ field.errors|striptags }}</p>
+      </div>
+      {% endfor %}
+      <input
+        class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5 mx-auto"
+        type="submit"
+        value="Submit" />
+    </form>
+  </div>
 </div>
-{% comment %} {% endif %} {% endcomment %}
+{% endif %}

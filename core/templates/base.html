@@ -1,43 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Online School" />
-        <title>
-            {% block head_title %}Dev IT{% endblock %}
-        </title>
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Online School" />
+    <title>{% block head_title %}Dev IT{% endblock %}</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet" />
 
-        {% block head_extra %}{% endblock %}
-        <style>
-            footer {
-                position: fixed !important;
-                bottom: 0 !important;
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body class="bg-indigo-600">
-        {% include 'navbar.html' %}
-        {% block body %}
-            <div class="lg:container lg:mx-auto" id="main">
-                {% include 'messages.html' %}
-                {% block content %}
-                {% endblock %}
-            </div>
-            {% comment %} <footer class="footer bg-blue-900 text-white relative border-b-2 mt-10">
-                <div class="container mx-auto px-6">
-                    <div class="mt-5 flex flex-col items-center">
-                        <div class="sm:w-2/3 text-center py-0 pb-2">
-                            <p class="text-md text-white font-bold mb-2">
-                                © {% now "Y" %} Modified by Phitron Team
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </footer> {% endcomment %}
-        {% endblock %}
-    </body>
+    {% block head_extra %}{% endblock %}
+    <style>
+      footer {
+        position: fixed !important;
+        bottom: 0 !important;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-indigo-400">
+    {% include 'navbar.html' %} {% block body %}
+    <div class="lg:container lg:mx-auto" id="main">
+      {% include 'messages.html' %} {% block content %} {% endblock %}
+    </div>
+    <footer class="bg-blue-900 relative text-white border-b-2">
+      <div class="container mx-auto px-6">
+        <div class="mt-5 flex flex-col items-center">
+          <div class="sm:w-2/3 text-center py-0 pb-2">
+            <p class="text-md text-white mb-2">All rights are reserved.</p>
+            <p class="text-md text-white font-bold mb-2">
+              © {% now "Y" %} Modified by DEV IT
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+  </body>
 </html>

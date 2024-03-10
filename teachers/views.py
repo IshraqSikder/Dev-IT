@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.generic import FormView
 from .forms import UserRegistrationForm,UserUpdateForm
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.urls import reverse_lazy
@@ -103,7 +102,6 @@ def pass_change(request):
 @login_required
 def track_course(request):
     data = Course.objects.filter(author = request.user)
-    # data = Course.objects.all()
     print(data)
     return render(request, 'track_course.html', {'data' : data})
     
