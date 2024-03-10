@@ -3,9 +3,6 @@
 {% load humanize %}
 {% block head_title %}Enrollment Report{% endblock %} {% block content %}
 
-<button class="bg-blue-900 hover:bg-blue-700 text-white font-bold mt-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"><a href="{% url 'profile' %}">Update Profile</a></button>
-<button class="bg-blue-900 hover:bg-blue-700 text-white font-bold mt-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"><a href="{% url 'change_password' %}">Change Password</a></button>
-
 <div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
   <h1 class="font-bold text-3xl text-center pb-5 pt-2">Enrollment Report</h1>
   <hr>
@@ -40,43 +37,27 @@
     </div>
   </form>
   <table
-    class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500"
-  >
+    class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500">
     <thead class="bg-purple-900 text-white text-left">
       <tr class="bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-md py-2 px-4 text-white font-bold">
         <th class="px-4 py-2">Date</th>
         <th class="px-4 py-2">Enrollment Type</th>
-        {% comment %} <th class="px-4 py-2">Amount</th>
-        <th class="px-4 py-2">Balance After Transaction</th> {% endcomment %}
       </tr>
     </thead>
     <tbody>
-      {% comment %} <p> {{ transactions|length }} </p> {% endcomment %}
-      {% for transaction in transactions %}
+      {% comment %} <p> {{ enrollments|length }} </p> {% endcomment %}
+      {% for enrollment in enrollments %}
       <tr class="border-b dark:border-neutral-500">
         <td class="px-4 py-2">
-          {{ transaction.timestamp|date:"F d, Y h:i A" }}
+          {{ enrollment.timestamp|date:"F d, Y h:i A" }}
         </td>
         <td class="px-4 py-3 text-s border">
-          <span
-            class="px-2 py-1 font-bold leading-tight rounded-sm {% if transaction.get_transaction_type_display == 'Enrolled' %} text-red-700 bg-red-100 {% else %} text-green-700 bg-green-100 {% endif %}">
-            {{ transaction.get_transaction_type_display }}
+          <span class="px-2 py-1 font-bold leading-tight rounded-sm {% if enrollment.get_enrollment_type_display == 'Enrolled' %} text-red-700 bg-red-100 {% else %} text-green-700 bg-green-100 {% endif %}">
+          {{ enrollment.get_enrollment_type_display }}
           </span>
         </td>
-        {% comment %} <td class="px-4 py-2">
-          $ {{ transaction.amount|floatformat:2|intcomma }}
-        </td>
-        <td class="px-4 py-2">
-          $ {{ transaction.balance_after_transaction|floatformat:2|intcomma }}
-        </td> {% endcomment %}
       </tr>
       {% endfor %}
-      {% comment %} <tr class="bg-gray-800 text-white">
-        <th class="px-4 py-2 text-right" colspan="3">Current Balance</th>
-        <th class="px-4 py-2 text-left">
-          $ {{ request.user.account.balance|floatformat:2|intcomma }}
-        </th>
-      </tr> {% endcomment %}
     </tbody>
   </table>
 </div>

@@ -15,11 +15,11 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         {% if user in course.borrowers.all %}
-                            <button name="complete" type="submit" class="bg-blue-900 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            <button name="return" type="submit" class="bg-blue-900 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                                 Mark as Complete
                             </button>
                         {% else %}
-                            <button name="enroll" type="submit" class="bg-blue-900 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            <button name="borrow" type="submit" class="bg-blue-900 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                                 Enroll the Course
                             </button>
                         {% endif %}

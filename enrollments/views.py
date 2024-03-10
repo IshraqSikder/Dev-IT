@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from datetime import datetime
 from enrollments.models import Enrollment
-from enrollments.constants import DEPOSIT
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
@@ -16,26 +15,6 @@ def send_enrollment_email(user, subject, template):
         send_email = EmailMultiAlternatives(subject, '', to=[user.email])
         send_email.attach_alternative(message, "text/html")
         send_email.send()
-    
-# class EnrollmentCreateMixin(LoginRequiredMixin, CreateView):
-#     # template_name = 'transaction_form.html'
-#     model = Enrollment
-#     title = ''
-#     success_url = reverse_lazy('enrollment_report')
-
-#     def get_form_kwargs(self):
-#         kwargs = super().get_form_kwargs()
-#         kwargs.update({
-#             'account': self.request.user.account
-#         })
-#         return kwargs
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context.update({
-#             'title': self.title
-#         })
-#         return context
     
 class EnrollmentReportView(LoginRequiredMixin, ListView):
     template_name = 'enrollment_report.html'
@@ -70,5 +49,5 @@ class EnrollmentReportView(LoginRequiredMixin, ListView):
         context.update({
             'enrollments': queryset,
             # 'current_balance': balance
-        })    
+        })  
         return context

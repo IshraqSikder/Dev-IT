@@ -1,7 +1,7 @@
 {% load static %}
-<div class="w-3/4">
-    <h2 class="text-2xl font-bold mb-4 text-center">{{data|length}} results found</h2>
-    <div class="mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 space-y-2 overflow-y-auto" style="max-height: 500px;">
+<div class="w-4/5 mx-auto">
+    {% comment %} <h2 class="text-2xl font-bold mb-4 text-center">{{data|length}} results found</h2> {% endcomment %}
+    <div class="mb-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 space-y-2" style="max-height: 500px;">
         {% for course in data %}
         <div class="bg-white p-4 shadow-md rounded-md">
             <div class="flex justify-center">

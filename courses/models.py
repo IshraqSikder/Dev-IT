@@ -10,7 +10,7 @@ class Course(models.Model):
     category = models.ManyToManyField(Category) 
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'courses/media/uploads/', blank = True, null = True)
-    # taken_by = models.ManyToManyField(UserAccount, related_name='enrolled_course', blank=True)
+    borrowers = models.ManyToManyField(User, related_name='borrowed_course', blank=True)
     
     def __str__(self):
         return self.title
