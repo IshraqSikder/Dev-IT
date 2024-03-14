@@ -1,4 +1,4 @@
-{% if user in course.borrowers.all %}
+{% comment %} {% if user in course.borrowers.all %}
 <div class="w-full flex mt-5 justify-center">
   <div class="w-10/12 rounded-lg">
     <form method="post">
@@ -21,4 +21,29 @@
     </form>
   </div>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
+
+{% if user in course.borrowers.all %}
+<div class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Add Comment</h2>
+                    <form method="post">
+                        {% csrf_token %} 
+                        {% for field in comment_form %}
+                        <div class="mb-3">
+                          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+                          <div class="border rounded focus-border-black">{{ field }}</div>
+                          <p class="text-danger">{{ field.errors }}</p>
+                        </div>
+                        {% endfor %}
+                        <input class="btn btn-primary d-block mx-auto" type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} 

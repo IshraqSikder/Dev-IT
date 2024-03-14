@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">Testimonial</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Testimonial</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid py-5" style="margin: 90px 0;">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="section-title position-relative mb-4">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Testimonial</h6>
+                        <h1 class="display-4">What Say Our Students</h1>
+                    </div>
+                    <p class="m-0">Our students express utmost satisfaction upon enrolling in our courses. Their positive feedback reflects their contentment and appreciation for the quality of instruction and learning experience provided. We are honored to contribute to their educational journey and strive to maintain our commitment to excellence.</p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="owl-carousel testimonial-carousel">
+                    {% for comment in comments %}
+                        <div class="bg-light p-5">
+                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                            <p>{{comment.body}}</p>
+                            <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                            <div>
+                                <h5>{{comment.name}}</h5>
+                                <span>{{comment.email}}</span><br>
+                                <span>{{comment.created_on}}</span>
+                            </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial Start -->
+
+
+{% endblock %}

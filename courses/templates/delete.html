@@ -1,11 +1,21 @@
-{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+{% extends "base.html" %} 
+{% block content %} 
+{% load crispy_forms_tags %}
 
-<form method="post" class="bg-blue-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+<form method="post" class="bg-light shadow p-3 m-5 rounded">
+    {% csrf_token %}
+    <h1 class="font-medium text-3xl text-center pb-5">Are you sure you want to delete?</h1>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-danger mx-auto" type="submit">Delete</button>
+    </div>
+</form>
+
+{% comment %} <form method="post" class="bg-blue-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
 {% csrf_token %}
 <h1 class="font-medium text-3xl text-center pb-5">Are you sure you want to delete?</h1>
 <div class="flex items-center justify-between">
   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-auto py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete</button>
 </div>
-</form>
+</form> {% endcomment %}
 
 {% endblock content %}

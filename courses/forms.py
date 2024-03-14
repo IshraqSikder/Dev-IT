@@ -10,15 +10,15 @@ class CourseForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         
         for field in self.fields:
-            self.fields[field].widget.attrs.update({     
+            self.fields[field].widget.attrs.update({      
                 'class' : (
-                    'appearance-none block w-full bg-gray-200 '
-                    'text-gray-700 border border-gray-200 rounded '
-                    'py-3 px-4 leading-tight focus:outline-none '
-                    'focus:bg-white focus:border-gray-500'
+                    'form-control border '
+                    'p-0 bg-gray-200 text-gray-700 border rounded '
+                    'py-1 px-4 leading-tight focus-outline-none '
+                    'focus-bg-white focus-border-gray-500'
                 ) 
             })
-        
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -30,9 +30,9 @@ class CommentForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({     
                 'class' : (
-                    'appearance-none block w-full bg-gray-200 '
-                    'text-gray-700 border border-gray-200 rounded '
-                    'py-3 px-4 leading-tight focus:outline-none '
-                    'focus:bg-white focus:border-gray-500'
+                    'form-control border-top-0 border-right-0 border-left-0 '
+                    'p-0 bg-gray-200 text-gray-700 border rounded '
+                    'py-3 px-4 leading-tight focus-outline-none '
+                    'focus-bg-white focus-border-gray-500'
                 ) 
             })

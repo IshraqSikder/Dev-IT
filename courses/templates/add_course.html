@@ -1,6 +1,130 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
 
-{% if form.non_field_errors %} 
+  <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">Add Course</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Add Course</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger mt-2" role="alert">
+            <strong>Error!</strong> {{ error }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="font-bold text-center pb-5">Course Information</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field.errors }}
+                    {{ hidden_field }}
+                {% endfor %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Title:</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Image:</label>
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            {% for error in form.image.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Content:</label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            {% for error in form.content.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category:</label>
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            {% for error in form.category.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Skill Level:</label>
+                        {{ form.level }}
+                        {% if form.level.errors %}
+                            {% for error in form.level.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Language:</label>
+                        {{ form.language }}
+                        {% if form.language.errors %}
+                            {% for error in form.language.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Lectures:</label>
+                        {{ form.lectures }}
+                        {% if form.lectures.errors %}
+                            {% for error in form.lectures.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Duration:</label>
+                        {{ form.duration }}
+                        {% if form.duration.errors %}
+                            {% for error in form.duration.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} {% if form.non_field_errors %} 
 {% for error in form.non_field_errors %}
 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
   <p class="font-bold">Error!</p>
@@ -52,6 +176,6 @@
       </div>
     </form>
   </div>
-</div>
+</div> {% endcomment %}
 
-{% endblock content %}
+{% endblock %}

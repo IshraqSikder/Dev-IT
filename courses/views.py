@@ -10,6 +10,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
+from django.template.defaultfilters import slugify
+from courses.models import Course
+from categories.models import Category
 
 # Create your views here.
 def confirmation_email(user, subject, template):
@@ -21,8 +24,13 @@ def confirmation_email(user, subject, template):
         send_email.send()
 
 @login_required
-def course_details(request, id):
-    course = models.Course.objects.get(id=id)
+def course_details(request, id, category_slug = None):
+    course = Course.objects.get(id=id)
+    data = Course.objects.all()
+    if category_slug is not None:
+        category = Category.objects.get(slug = category_slug)
+        data = Course.objects.filter(category = category)
+    categories = Category.objects.all()
     user = request.user
     user_account = UserAccount.objects.filter(user=user).first()
     borrowers_list = []
@@ -64,7 +72,7 @@ def course_details(request, id):
     comments = models.Comment.objects.filter(course=course)
     comment_form = forms.CommentForm()
 
-    return render(request, 'course_details.html', {'course': course, 'comments': comments, 'comment_form': comment_form})
+    return render(request, 'detail.html', {'course': course, 'data': data, 'category': categories, 'comments': comments, 'comment_form': comment_form})
 
 @method_decorator(login_required, name='dispatch')
 class AddCourseCreateView(CreateView):

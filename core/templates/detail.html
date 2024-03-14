@@ -1,0 +1,115 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+<!-- Header Start -->
+<div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-1">Course Detail</h1>
+        <div class="d-inline-flex text-white mb-5">
+            <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+            <i class="fa fa-angle-double-right pt-1 px-3"></i>
+            <p class="m-0 text-uppercase">Course Detail</p>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+
+<!-- Detail Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="mb-5">
+                    <div class="section-title position-relative mb-5">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Course Detail</h6>
+                        <h1 class="display-4">{{ course.title }}</h1>
+                    </div>
+                    <img class="img-fluid rounded w-100 mb-4" style="height: 500px;" src="{{ course.image.url }}" alt="Image">
+                    <p>{{ course.content }}</p>
+                </div>
+
+                <h2 class="mb-3">Related Courses</h2>
+                <div class="owl-carousel related-carousel position-relative" style="padding: 0 30px;">
+                    {% for course in data %}
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{% url 'details_course' course.id %}">
+                        <img class="img-fluid" src="{{course.image.url}}" alt="">
+                        <div class="courses-text">
+                            <h4 class="text-center text-white px-3">{{course.title}}</h4>
+                            <div class="border-top w-100 mt-3">
+                                <div class="d-flex justify-content-between p-4">
+                                    <span class="text-white"><i class="fa fa-user mr-2"></i>{{course.author}}</span>
+                                    <span class="text-white"><i class="fa fa-star mr-2"></i>4.5
+                                        <small>(250)</small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="bg-primary mb-5 py-3">
+                    <h3 class="text-white py-3 px-4 m-0">Course Features</h3>
+                    <div class="d-flex justify-content-between border-bottom px-4">
+                        <h6 class="text-white my-3">Instructor</h6>
+                        <h6 class="text-white my-3">{{ course.author.first_name }} {{ course.author.last_name }}</h6>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom px-4">
+                        <h6 class="text-white my-3">Lectures</h6>
+                        <h6 class="text-white my-3">{{ course.lectures }}</h6>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom px-4">
+                        <h6 class="text-white my-3">Duration</h6>
+                        <h6 class="text-white my-3">{{course.duration}} Hrs</h6>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom px-4">
+                        <h6 class="text-white my-3">Skill level</h6>
+                        <h6 class="text-white my-3">All Level</h6>
+                    </div>
+                    <div class="d-flex justify-content-between px-4">
+                        <h6 class="text-white my-3">Language</h6>
+                        <h6 class="text-white my-3">English</h6>
+                    </div>
+                    {% comment %} <h5 class="text-white py-3 px-4 m-0">Course Price: $199</h5> {% endcomment %}
+                    {% if user.is_authenticated %}
+                        <form method="post" action="" class="mt-3">
+                            {% csrf_token %}
+                            {% if user in course.borrowers.all %}
+                            <div class="py-3 px-4">
+                                <button name="return" type="submit" class="btn btn-block btn-secondary py-3 px-5">Complete Now</button>
+                            </div>
+                            {% else %}
+                            <div class="py-3 px-4">
+                                <button name="borrow" type="submit" class="btn btn-block btn-secondary py-3 px-5">Enroll Now</button>
+                            </div>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <div class="py-3 px-4">
+                            <a class="btn btn-block btn-secondary py-3 px-5" href="{% url 'login' %}">Enroll Now</a>
+                        </div>    
+                    {% endif %}
+                </div>
+
+                <div class="mb-5">
+                    <h2 class="mb-3">Categories</h2>
+                    <ul class="list-group list-group-flush">
+                        {% for j in course.category.all %} 
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <p class="text-decoration-none h6 m-0">{{j.name}}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'add_comment.html' %}
+            </div>
+        </div>
+        {% include "comment.html" %}
+    </div>
+</div>
+<!-- Detail End -->
+
+{% endblock %}

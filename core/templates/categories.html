@@ -1,9 +1,11 @@
-<div class="w-4/5 mx-auto">
-    <h2 class="text-2xl font-bold mb-4 text-center">Categories</h2>
-    <div class="flex mb-10 mx-auto text-center font-bold">
-        <a href="{% url 'home' %}" class="bg-purple-900 hover:bg-blue-700 text-white font-bold mx-6 py-2 px-4 rounded focus:outline-none focus:shadow-outline">All Categories</a>
-        {% for cat in category %} 
-        <a href="{% url 'category_wise_post' cat.slug %}" class="bg-purple-900 hover:bg-blue-700 text-white font-bold mx-6 py-2 px-4 rounded focus:outline-none focus:shadow-outline">{{cat.name}}</a>
-        {% endfor %}
+<div class="container-fluid">
+    <h2 class="text-center text-success font-weight-bold mb-4">Categories</h2>
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <a href="{% url 'course' %}" class="btn btn-primary mx-2 my-1">All Categories</a>
+            {% for cat in category %} 
+            <a href="{% url 'category_wise_post' cat.slug %}" class="btn btn-primary mx-2 my-1">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
     </div>
 </div>

@@ -1,4 +1,61 @@
-{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
+{% extends "base.html" %} 
+{% block content %} 
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- Header Start -->
+<div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+    <div class="container text-center py-5">
+        <h1 class="text-white display-1">Track Course</h1>
+        <div class="d-inline-flex text-white mb-5">
+            <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+            <i class="fa fa-angle-double-right pt-1 px-3"></i>
+            <p class="m-0 text-uppercase">Track Course</p>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<div class="container">
+    <h2 class="text-center mt-5 mb-4 font-weight-bold">{{ data|length }} results found</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for item in data %}
+        <div class="col">
+            <div class="card shadow my-2" style="height: 30rem;">
+                <div class="text-center">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'path/to/default/image.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="No Image Available">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title text-center">{{ item.title }}</h4>
+                    <p class="card-text">{{ item.content | truncatechars:100 }}</p>
+                    <p class="text-center mb-1">Author: <span class="text-muted">{{ item.author }}</span></p>
+                    <p class="text-center mb-2">Category: 
+                        {% for category in item.category.all %}
+                            <span class="badge bg-warning">{{ category.name }}</span>
+                        {% endfor %}
+                    </p>
+                    <div class="text-center">
+                        <a href="{% url 'edit_course' item.id %}" class="btn btn-success me-2">Edit</a>
+                        <a href="{% url 'delete_course' item.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% comment %} {% extends "base.html" %} 
+{% block content %} 
+{% load crispy_forms_tags %}
 {% load static %}
 <div class="w-3/4 mx-auto mb-32">
     <h2 class="text-2xl font-bold mb-4 text-center mt-10">{{data|length}} results found</h2>
@@ -31,4 +88,4 @@
     </div>
 </div>
 
-{% endblock content %}
+{% endblock %} {% endcomment %}

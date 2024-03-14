@@ -1,10 +1,22 @@
-{% extends 'base.html' %} {% load static %} {% block head_title %}Dev IT{% endblock %} {% block content %} {% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-    <p class="font-bold">Error!</p>
-    <p class="block sm:inline">{{ error }}</p>
-</div>
-{% endfor %} {% endif %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% load crispy_forms_tags %}
+{% comment %} {% block head_title %}Dev IT{% endblock %}  {% endcomment %}
+{% block content %} 
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid page-header position-relative overlay-bottom" style="margin-bottom: 90px;">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-1">Profile</h1>
+            <div class="d-inline-flex text-white mb-5">
+                <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Profile</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
 {% if form.non_field_errors %}
 {% for error in form.non_field_errors %}
 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
@@ -13,13 +25,159 @@
 </div>
 {% endfor %} {% endif %}
 
-<button class="bg-blue-900 hover:bg-blue-700 text-white font-bold mt-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"><a href="{% url 'change_password' %}">Change Password</a></button>
 
-<div class="bg-white px-3 py-4 rounded-xl mt-5 mb-32">
-    <h5 class="font-bold text-3xl text-left pb-5">Account No: {{request.user.account.account_no}}</h5>
-    <h1 class="font-bold text-3xl text-center pb-5">Update Profile Information</h1>
-    <div class="w-full mt-10">
-        <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+
+
+{% comment %} <div class="bg-white px-3 py-4 rounded-xl mt-5 mb-32"> {% endcomment %}
+    <h1 class="fw-bold text-center pb-5">Update Information</h1>
+    <div class="row justify-content-center bg-image mx-0 mb-5">
+    <div class="col-lg-6 py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h5 class="font-weight-bold text-left pb-5">Account No: {{ request.user.account.account_no }}</h5>
+            </div>
+            <div class="col-md-6">
+                <form action="{% url 'change_password' %}">
+                    <button class="btn btn-warning" type="submit">Change Password</button>
+                </form>
+            </div>
+        </div>
+        <form method="post" class="bg-white shadow p-3 rounded">
+        {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+        {% endfor %}
+        
+        <div class="row p-3">
+            <div class="col-md-6">
+                {{ form.first_name|as_crispy_field }}
+                {% if form.first_name.errors %} {% for error in form.first_name.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.last_name|as_crispy_field }}
+                {% if form.last_name.errors %} {% for error in form.last_name.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+
+        <div class="row p-3">
+            <div class="col-md-6">
+                {{ form.email|as_crispy_field }}
+                {% if form.email.errors %} {% for error in form.email.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.birth_date|as_crispy_field }}
+                {% if form.birth_date.errors %} {% for error in form.birth_date.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+
+        <div class="row p-3">
+            <div class="col-md-6">
+                {{ form.gender|as_crispy_field }}
+                {% if form.gender.errors %} {% for error in form.gender.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.profession|as_crispy_field }}
+                {% if form.profession.errors %} {% for error in form.profession.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+
+        <div class="row p-3">
+            <div class="col-md-6">
+                {{ form.street_address|as_crispy_field }}
+                {% if form.street_address.errors %} {% for error in form.street_address.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.city|as_crispy_field }}
+                {% if form.city.errors %} {% for error in form.city.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+
+        <div class="row p-3">
+            <div class="col-md-6">
+                {{ form.postal_code|as_crispy_field }}
+                {% if form.postal_code.errors %} {% for error in form.postal_code.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form.country|as_crispy_field }}
+                {% if form.country.errors %} {% for error in form.country.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %} {% endif %}
+            </div>
+        </div>
+        
+        <div class="form-group text-center">
+        <button class="btn btn-success px-3" type="submit">Update</button>
+    </div>
+    </form>
+
+
+
+                {% comment %} <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.first_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.birth_date|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.profession|as_crispy_field }}
+                    </div>
+                    {% comment %} <div class="form-group">
+                        {{ form.password1|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password2|as_crispy_field }}
+                    </div> 
+                    <div class="form-group">
+                        {{ form.street_address|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.postal_code|as_crispy_field }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.country|as_crispy_field }}
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" type="submit" style="height: 60px;">Update</button>
+                </form> {% endcomment %}
+            </div>
+        </div>
+    </div>
+
+        {% comment %} <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             {% csrf_token %}
             {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -137,7 +295,5 @@
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">Update</button>
             </div>
-        </form>
-    </div>
-</div>
+        </form> {% endcomment %}
 {% endblock %}

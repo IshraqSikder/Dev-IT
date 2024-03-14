@@ -8,6 +8,7 @@ class UserAccount(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=15, choices=GENDER_TYPE)
     profession = models.CharField(max_length=15, choices=PROFESSION_TYPE)
+    image = models.ImageField(upload_to = 'teachers/media/uploads/', blank = True, null = True)
     account_no = models.IntegerField(unique=True)
     def __str__(self):
         return f"{self.user.username} - {self.account_no}"

@@ -2,12 +2,17 @@ from django.db import models
 from categories.models import Category
 from teachers.models import UserAccount
 from django.contrib.auth.models import User
+from .constants import SKILL_LEVEL
 
 # Create your models here.
 class Course(models.Model):
     title = models.CharField(max_length = 100)
     content = models.TextField()
-    category = models.ManyToManyField(Category) 
+    category = models.ManyToManyField(Category)
+    lectures = models.IntegerField()
+    duration = models.DurationField()
+    level = models.CharField(max_length=30, choices=SKILL_LEVEL)
+    language = models.CharField(max_length = 20)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     image = models.ImageField(upload_to = 'courses/media/uploads/', blank = True, null = True)
     borrowers = models.ManyToManyField(User, related_name='borrowed_course', blank=True)
